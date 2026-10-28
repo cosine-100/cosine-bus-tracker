@@ -1,0 +1,10 @@
+<aside class="panel details-panel" aria-label="Bus details">
+  <div class="panel-heading"><h3>Journey details</h3><span class="small-tag">SELECTED BUS</span></div>
+  <div class="selected-bus-heading"><h4 data-detail="name">Choose a bus</h4><button class="text-button" type="button" data-clear-selection hidden>Clear</button></div>
+  <dl class="details-grid">
+    <% [ ['route','Route'], ['next','Next stop'], ['status','Status'], ['accuracy','GPS accuracy'], ['updated','Last update'], ['distance','Distance to stop'], ['eta','Estimated arrival'] ].forEach(function(row) { %>
+    <div class="detail-item detail-<%= row[0] %>"><dt><%= row[1] %></dt><dd data-detail="<%= row[0] %>">Not available</dd></div>
+    <% }); %>
+  </dl>
+  <p class="fine-print">Arrival times are estimates from current GPS speed and route distance, without traffic or stop dwell times. Dashed lines are straight connections between stops.</p>
+</aside>

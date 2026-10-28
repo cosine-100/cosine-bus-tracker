@@ -1,0 +1,9 @@
+const express=require('express');
+const router=express.Router();
+router.get('/',(req,res)=>res.render('home/welcome',{title:'Welcome',active:'home'}));
+router.get('/student',(req,res)=>res.render('student/dashboard',{title:'Student dashboard',active:'student'}));
+router.get('/driver',(req,res)=>res.render('driver/tracker',{title:'Driver tracking',active:'driver'}));
+router.get('/signin',(req,res)=>res.render('auth/access',{title:'Demo sign in',active:'auth',signup:false}));
+router.get('/signup',(req,res)=>res.render('auth/access',{title:'Create demo session',active:'auth',signup:true}));
+router.get('/help',(req,res)=>res.render('home/help',{title:'How tracking works',active:'help'}));
+module.exports=router;

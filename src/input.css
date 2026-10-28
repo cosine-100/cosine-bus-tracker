@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-white text-charcoal font-sans antialiased leading-relaxed; }
+  h1, h2, h3 { @apply font-display text-ink; }
+  :focus-visible { outline: 2px solid #C8A24A; outline-offset: 3px; }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-6xl px-6 sm:px-10; }
+  .block-space { @apply py-20 sm:py-28; }
+
+  /* Outlined display text: hollow letters with a gold border */
+  .text-outline { color: transparent; -webkit-text-stroke: 1.5px #C8A24A; }
+  .text-outline-dark { color: transparent; -webkit-text-stroke: 1.5px #000; }
+
+  .map-grid { background-image: linear-gradient(#f0ebdc 1px, transparent 1px), linear-gradient(90deg, #f0ebdc 1px, transparent 1px); background-size: 48px 48px; }
+
+  .rule-gold { @apply h-px w-20 bg-gold; }
+
+  .card { @apply bg-white border border-line rounded-sm shadow-soft p-8 sm:p-10; }
+
+  .btn { @apply inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium tracking-wide rounded-sm
+    transition duration-300 disabled:cursor-not-allowed disabled:opacity-40; }
+  .btn-gold { @apply bg-gold text-ink shadow-gold hover:bg-gold-deep hover:text-white disabled:shadow-none disabled:hover:bg-gold disabled:hover:text-ink; }
+  .btn-outline { @apply border border-ink text-ink hover:bg-ink hover:text-white disabled:hover:bg-transparent disabled:hover:text-ink; }
+
+  .badge { @apply inline-flex items-center gap-2 border border-line px-3 py-1 text-xs text-muted rounded-full; }
+  .badge::before { content: ''; @apply h-2 w-2 rounded-full bg-muted/60; }
+  .badge-ok { @apply text-green-800 border-green-200; }
+  .badge-ok::before { @apply bg-green-600; }
+
+  .field { @apply w-full border border-line bg-white px-5 py-3.5 rounded-sm text-ink placeholder:text-muted/70
+    focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30 disabled:bg-gray-50; }
+
+  .nav-link { @apply relative text-sm tracking-wide text-charcoal py-2 transition-colors hover:text-gold-deep; }
+  .nav-link::after { content: ''; @apply absolute left-0 -bottom-0.5 h-px w-0 bg-gold transition-all duration-300; }
+  .nav-link:hover::after, .nav-link[aria-current='page']::after { @apply w-full; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

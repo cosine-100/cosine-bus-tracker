@@ -1,0 +1,8 @@
+<aside class="app-sidebar">
+  <div><p class="nav-caption">WORKSPACE</p><nav class="side-nav" aria-label="Workspace">
+    <a href="#main" aria-current="location"><%- include('icon',{name:'grid'}) %>Overview</a>
+    <a href="#tracking"><%- include('icon',{name:'pin'}) %><%= active === 'driver' ? 'Location preview' : 'Live map' %></a>
+    <a href="<%= active === 'driver' ? '#trip-controls' : '#route-stops' %>"><%- include('icon',{name:active === 'driver' ? 'play' : 'route'}) %><%= active === 'driver' ? 'Trip controls' : 'Route & stops' %></a>
+  </nav></div>
+  <div class="sidebar-bottom"><div class="journey-note"><h3><%= active === 'driver' ? 'Before you drive' : 'Before you leave' %></h3><p><%= active === 'driver' ? 'Connect your bus and start sharing before you set off. Keep your screen awake during the trip.' : 'Select your bus and pickup stop. Check the last GPS update before relying on an arrival estimate.' %></p></div><p class="sidebar-signoff">Cosine Bus Tracker</p></div>
+</aside>

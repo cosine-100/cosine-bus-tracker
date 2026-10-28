@@ -1,0 +1,26 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<div class="app-layout"><%- include('../partials/sidebar') %>
+<main id="main" class="workspace" data-student>
+  <div class="page-heading"><div><span class="eyebrow">STUDENT VIEW</span><h1>Student dashboard</h1></div><span class="date-chip"><%= new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) %></span></div>
+  <section class="commute-hero" aria-labelledby="commute-title">
+    <div class="hero-copy"><span class="hero-kicker">MAKE THE MOST OF YOUR TIME</span><h2 id="commute-title">Your ride.<br><em>Right in sight.</em></h2><p>Find your bus, choose your stop,<br>and see the journey ahead.</p><a class="hero-link" href="#bus-search">Find your bus <%- include('../partials/icon',{name:'arrow'}) %></a></div>
+    <%- include('../partials/route-art') %>
+  </section>
+  <form class="search-bar" role="search" data-search><span class="search-icon"><%- include('../partials/icon',{name:'search'}) %></span><div class="search-input"><label for="bus-search">Find your bus</label><input id="bus-search" type="search" placeholder="Search bus ID, name or route" autocomplete="off" aria-controls="fleet-results"></div><button class="btn btn-gold" type="submit">Search <%- include('../partials/icon',{name:'arrow'}) %></button></form>
+  <section class="metric-grid" aria-label="Fleet summary">
+    <% [ ['total','Registered buses','Campus fleet'], ['active','Active trips','Journeys in progress'], ['live','Sharing location','Recent GPS updates'], ['delayed','Delayed updates','Waiting for GPS'] ].forEach(function(item) { %>
+    <article class="metric-card"><p class="metric-label"><%= item[1] %></p><div class="metric-reading"><strong data-count="<%= item[0] %>">&ndash;</strong><span class="metric-note"><%= item[2] %></span></div></article>
+    <% }); %>
+  </section>
+  <section id="tracking" class="tracking-section"><div class="section-heading"><div><span class="eyebrow">LIVE TRACKING</span><h2>Find your next connection</h2></div><span class="connection-chip" data-connection role="status" aria-live="polite">Connecting to the fleet...</span></div>
+    <div class="tracking-grid">
+      <div class="panel fleet-panel"><div class="panel-heading"><h3>Your buses</h3><button class="text-button" type="button" data-refresh>Refresh</button></div><p class="panel-description" data-results-message role="status">Loading registered buses...</p><div id="fleet-results" class="fleet-results" data-results></div><div class="empty-illustration" data-fleet-empty><strong data-empty-title>No buses to show yet</strong><p data-empty-copy>Registered buses will appear here once your fleet is configured.</p><button type="button" class="text-button" data-clear-search hidden>Clear search</button></div></div>
+      <div class="panel map-panel"><div class="panel-heading"><h3>Live map</h3><button class="text-button" type="button" data-map-fit disabled><%- include('../partials/icon',{name:'expand'}) %>Recenter</button></div><div class="map-wrap"><div id="student-map" class="tracker-map" aria-label="Live bus map"></div><div class="map-empty-overlay" data-map-empty><strong>Waiting for a live journey</strong><p>Select a configured route, or wait for a driver to share their location.</p></div></div><p class="map-caption" data-map-message>Only recent GPS positions are shown.</p><p class="map-health" data-map-health role="status" hidden></p></div>
+      <%- include('../partials/journey-details') %>
+    </div>
+  </section>
+  <section id="route-stops" class="panel stops-panel"><div class="panel-heading"><h3>Route & pickup stops</h3><span class="small-tag" data-stop-summary>CHOOSE A BUS</span></div><div class="stops-intro"><p data-stop-intro>Choose a bus above to see its stops. Then select your pickup point for an arrival estimate.</p></div><div class="stop-list" data-stops></div></section>
+  <div class="bottom-note"><p>Check the time of the last update. A delayed or paused journey does not show a live bus position.</p></div>
+</main></div>
+<%- include('../partials/footer') %>
