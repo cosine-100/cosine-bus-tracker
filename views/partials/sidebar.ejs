@@ -1,8 +1,8 @@
-<aside class="app-sidebar">
-  <div><p class="nav-caption">WORKSPACE</p><nav class="side-nav" aria-label="Workspace">
-    <a href="#main" aria-current="location"><%- include('icon',{name:'grid'}) %>Overview</a>
-    <a href="#tracking"><%- include('icon',{name:'pin'}) %><%= active === 'driver' ? 'Location preview' : 'Live map' %></a>
-    <a href="<%= active === 'driver' ? '#trip-controls' : '#route-stops' %>"><%- include('icon',{name:active === 'driver' ? 'play' : 'route'}) %><%= active === 'driver' ? 'Trip controls' : 'Route & stops' %></a>
+<aside id="workspace-sidebar" class="app-sidebar" aria-label="Workspace navigation">
+  <div><div class="sidebar-heading"><p class="nav-caption">WORKSPACE</p><button type="button" class="sidebar-collapse" data-sidebar-collapse aria-controls="workspace-sidebar" aria-expanded="true" aria-label="Collapse sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16m7-12-4 4 4 4"/></svg></button></div><nav class="side-nav" aria-label="Workspace">
+    <a href="#main" aria-current="location"><%- include('icon',{name:'grid'}) %><span>Overview</span></a>
+    <a href="#tracking"><%- include('icon',{name:'pin'}) %><span><%= active === 'driver' ? 'Location preview' : 'Live map' %></span></a>
+    <a href="<%= active === 'driver' ? '#trip-controls' : '#route-stops' %>"><%- include('icon',{name:active === 'driver' ? 'play' : 'route'}) %><span><%= active === 'driver' ? 'Trip controls' : 'Route & stops' %></span></a>
   </nav></div>
-  <div class="sidebar-bottom"><div class="journey-note"><h3><%= active === 'driver' ? 'Before you drive' : 'Before you leave' %></h3><p><%= active === 'driver' ? 'Connect your bus and start sharing before you set off. Keep your screen awake during the trip.' : 'Select your bus and pickup stop. Check the last GPS update before relying on an arrival estimate.' %></p></div><p class="sidebar-signoff">Cosine Bus Tracker</p></div>
+  <div class="sidebar-bottom"><nav class="side-nav account-nav" aria-label="Account and support"><a href="/profile" title="Profile"><%- include('icon',{name:'user'}) %><span>Profile</span></a><a href="/settings" title="Settings"><%- include('icon',{name:'settings'}) %><span>Settings</span></a><a href="/help" title="Help"><span class="rail-symbol" aria-hidden="true">?</span><span>Help & guidance</span></a><a href="/signin" data-signin-link title="Sign in"><%- include('icon',{name:'login'}) %><span>Sign in</span></a><button type="button" data-signout hidden title="Sign out"><%- include('icon',{name:'logout'}) %><span>Sign out</span></button></nav><p class="sidebar-signoff">Cosine Bus Tracker</p></div>
 </aside>

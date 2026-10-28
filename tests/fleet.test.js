@@ -54,13 +54,16 @@ test('HTTP pages, authorization, JSON validation and live stream', async t => {
   await new Promise(resolve => server.once('listening', resolve));
   t.after(async () => { app.close(); server.closeAllConnections(); await new Promise(resolve => server.close(resolve)); delete process.env.DATA_FILE; });
   const base = `http://127.0.0.1:${server.address().port}`;
-  for (const route of ['/', '/student', '/driver', '/signin', '/signup', '/help', '/health', '/js/driver.js', '/css/style.css', '/vendor/leaflet/leaflet.js', '/vendor/leaflet/leaflet.css', '/css/fonts.css', '/vendor/fonts/jost/files/jost-latin-400-normal.woff2']) {
+  for (const route of ['/', '/student', '/driver', '/signin', '/signup', '/profile', '/settings', '/help', '/health', '/js/driver.js', '/css/style.css', '/vendor/leaflet/leaflet.js', '/vendor/leaflet/leaflet.css', '/css/fonts.css', '/vendor/fonts/jost/files/jost-latin-400-normal.woff2']) {
     const response = await fetch(base+route); assert.equal(response.status, 200, route); assert.ok((await response.text()).length);
   }
   assert.match(await (await fetch(base+'/signin')).text(), /Demo access: use test details/);
   assert.match(await (await fetch(base+'/')).text(), /Less waiting/);
   assert.match(await (await fetch(base+'/student')).text(), /data-student/);
   assert.equal((await fetch(base+'/student')).headers.get('referrer-policy'),'strict-origin-when-cross-origin');
+  const settingsHtml=await (await fetch(base+'/settings')).text();assert.match(settingsHtml,/data-settings-page/);assert.match(settingsHtml,/Nigeria/);
+  const profileHtml=await (await fetch(base+'/profile')).text();assert.match(profileHtml,/data-profile-form/);
+  const mapConfig=require('../config/env').map;assert.deepEqual(mapConfig.center,[9.082,8.6753]);assert.equal(mapConfig.zoom,6);
   const post = (action, body, token = key) => fetch(`${base}/api/driver/${action}`, {method: 'POST', headers: {'Content-Type': 'application/json', Authorization: `Bearer ${token}`}, body: JSON.stringify({busId: 'TEST-1', ...body})});
   assert.equal((await post('start', {}, 'wrong')).status, 401);
   const started = await (await post('start', {})).json();

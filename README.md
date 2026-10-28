@@ -100,9 +100,9 @@ Real deployment still needs your fleet records, an HTTPS host, a persistent stor
 
 `/` is the welcome page. Once someone visits a workspace, returning to `/` takes them to their last student or driver view using a local browser preference. `/?welcome=1` always opens the welcome page. The student dashboard now lives at `/student`; the driver page remains `/driver`.
 
-`/signin` and `/signup` are deliberately **demo** access forms. Any syntactically valid email and non-empty demo password work. Passwords are never sent or saved, and no real user account is created. Only the display name and selected role are stored in sessionStorage. Demo access does not grant driver API permissions; sharing a real bus still requires its private key. Sign out clears the demo session and returning-user preference. `/help` explains tracking, privacy, and cross-phone HTTPS requirements.
+`/signin` and `/signup` are deliberately **demo** access forms. Any syntactically valid email and non-empty demo password work. Passwords are never sent or saved, and no real user account is created. Only the demo name, email and selected role are stored in sessionStorage. Demo access does not grant driver API permissions; sharing a real bus still requires its private key. Sign out clears the demo session and returning-user preference. `/help` explains tracking, privacy, and cross-phone HTTPS requirements.
 
-The theme control is now a two-state light/dark switch. Without a saved choice it follows the device's theme. The map base layer loads even when the fleet is empty; bus markers still require real recent GPS fixes. Set `MAP_CENTER_LAT`, `MAP_CENTER_LNG`, and `MAP_ZOOM` for the actual campus (defaults show a broad geographic overview, not a claimed bus location). The standard OpenStreetMap tile service is used with visible attribution, browser caching, and an origin referrer. See [its usage policy](https://operations.osmfoundation.org/policies/tiles/) before deploying at scale.
+The theme control is now a two-state light/dark switch. Without a saved choice it follows the device's theme. The map base layer loads even when the fleet is empty; bus markers still require real recent GPS fixes. Set `MAP_CENTER_LAT`, `MAP_CENTER_LNG`, and `MAP_ZOOM` for the actual campus (defaults show Nigeria, not a claimed bus location). The standard OpenStreetMap tile service is used with visible attribution, browser caching, and an origin referrer. See [its usage policy](https://operations.osmfoundation.org/policies/tiles/) before deploying at scale.
 
 
 ## Vercel preview deployment
@@ -114,3 +114,11 @@ Use the preview to test UI, map tiles and demo access on phones. Do not upload `
 The live backend is still a single-process pilot: in-memory trips and private file-based registrations are not shared across serverless instances. A persistent backend/shared datastore is needed before depending on live tracking on Vercel. No production deployment is performed by committing or pushing this repository.
 
 [Express on Vercel](https://vercel.com/docs/frameworks/backend/express) documents static file handling and Express support. The next implementation sequence is in [the settings and tour plan](docs/next-steps.md).
+
+## Profile, settings and Nigeria map
+
+`/profile` edits the current tab's demo name, optional email and default role. It does not create a verified identity or grant driver API access. `/settings` controls light/dark/device appearance, reduced motion, and whether returning users skip the welcome page. These preferences are stored on the device, while the demo profile stays in sessionStorage. Settings also clears the saved bus/pickup selection or resets device preferences without signing out.
+
+Sign-out is available in the header/mobile menu and account pages. It clears the demo profile, saved pickup and returning-workspace preference while retaining appearance settings. Leaving a driver page still invokes the existing GPS-stop/pause behavior.
+
+The default map now opens on Nigeria, centered at 9.0820 N, 8.6753 E and fitted to a broad country view on narrow screens. Explicit map-center/zoom environment settings continue to override the default. Recenter returns to Nigeria when no bus/route is selected; actual GPS and route geometry take priority when selected.

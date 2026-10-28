@@ -6,13 +6,13 @@ Publish the current app and test the welcome, sign-in, student and driver pages 
 
 Verify at 320px, 390px, tablet and desktop widths: readability, gold button contrast, card/background separation, menu behavior, keyboard navigation, sign-in redirects, map loading and footer links. Record the device, browser and screenshot for any issue.
 
-## 2. Settings (next implementation)
+## 2. Settings and profile (implemented; field verification next)
 
-Add an accessible Settings entry in desktop navigation and the mobile menu. Group settings by actual user needs: appearance and reduced motion, preferred student pickup/bus, and controls for clearing local preferences or the demo session. Explain which preferences are saved on this device. Never expose or persist the private driver key in settings.
+Settings and Profile are now available from desktop navigation and the mobile menu. Group settings by actual user needs: appearance and reduced motion, preferred student pickup/bus, and controls for clearing local preferences or the demo session. Explain which preferences are saved on this device. Never expose or persist the private driver key in settings.
 
 Acceptance: both themes, keyboard and screen-reader navigation, mobile layout, persistence after reload, and clear/reset behavior all work.
 
-## 3. Guided tour (after settings)
+## 3. Guided tour (next implementation)
 
 Use a short role-specific spotlight tour, with Next, Back, Skip and progress. Student steps: bus search, live map, choosing a stop, understanding freshness/ETA. Driver steps: assigned-bus connection, start trip, GPS permission, stop sharing, end trip.
 

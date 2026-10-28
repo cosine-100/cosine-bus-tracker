@@ -8,10 +8,12 @@
   let bus=null,key='',tripId=null,startRequestId=null,watch=null,generation=0,busy=false,sequence=0,latest=null,sentTimestamp=0,pendingAction=null,queue=Promise.resolve(),flushing=false,serverOffset=0,lastContact=0,lastHeartbeat=0,lastSentAt=0,wakeLock=null;
   function controls(){
     root.dataset.connected=String(Boolean(bus));
+    const help=document.querySelector('[data-trip-help]');if(help)help.textContent=!bus?'Enter your assigned bus ID and private driver key above, then connect. Trip controls unlock in order.':!tripId?'Bus connected. Choose Start trip, then Start sharing to allow phone GPS access.':watch===null?'Choose Start sharing to send your phone location, or End trip to finish.':'Your GPS is sharing. Stop sharing pauses GPS; End trip finishes the journey.';
+    for(const button of Object.values(buttons))button.setAttribute('aria-describedby','trip-help');
     buttons.start.disabled=!bus||Boolean(tripId)||busy;buttons.share.disabled=!tripId||watch!==null||busy||Boolean(pendingAction);
     buttons.pause.disabled=watch===null;buttons.end.disabled=!tripId||busy||pendingAction==='end';
     for(const el of form.querySelectorAll('input,button'))el.disabled=Boolean(bus)||busy;
-    document.querySelector('[data-connect-button]').setAttribute('aria-busy',String(busy&&!tripId));
+    document.querySelector('[data-connect-button]').setAttribute('aria-busy',String(busy&&!bus));
     document.querySelector('[data-connect-label]').textContent=busy&&!bus?'Connecting...':bus?'Bus connected':'Connect bus';
     disconnect.hidden=!bus;disconnect.disabled=Boolean(tripId)||busy;
     const current=!bus?'connect':!tripId?'start':'share';

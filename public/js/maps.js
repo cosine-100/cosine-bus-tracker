@@ -4,8 +4,8 @@ window.TrackerMap = class TrackerMap {
     this.empty=document.querySelector('[data-map-empty]');this.health=document.querySelector('[data-map-health]');this.fitButton=document.querySelector('[data-map-fit]');
     this.fitButton?.addEventListener('click',()=>this.fit());
     if(!window.L){this.problem('The map could not load. Bus details and trip controls are still available.');return;}
-    let config={center:[20,0],zoom:3};try{config=JSON.parse(document.querySelector('meta[name=map-config]').content);}catch{}
-    this.initialView=config;this.map=L.map(id,{scrollWheelZoom:false}).setView(config.center,config.zoom);
+    let config={center:[9.0820,8.6753],zoom:6};try{config=JSON.parse(document.querySelector('meta[name=map-config]').content);}catch{}
+    this.initialView=config;this.map=L.map(id,{scrollWheelZoom:false}).setView(config.center,config.zoom);if(config.bounds)this.map.fitBounds(config.bounds,{padding:[12,12],maxZoom:config.zoom,animate:false});
     this.routeLayer=L.layerGroup().addTo(this.map);
     this.tiles=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'});
     this.tiles.on('tileerror',()=>this.problem('Map tiles are unavailable. Check your internet connection; live journey details still work.'));
@@ -56,6 +56,6 @@ window.TrackerMap = class TrackerMap {
     const bus=this.selected,points=[];
     if(bus){const route=bus.route;points.push(...(route.path?.length?route.path:route.stops).map(p=>[p.lat,p.lng]));if(bus.location)points.push([bus.location.lat,bus.location.lng]);}
     if(!points.length)points.push(...[...this.markers.values()].map(marker=>marker.getLatLng()));
-    if(points.length)this.map.fitBounds(points,{padding:[32,32],maxZoom:16,animate:!matchMedia('(prefers-reduced-motion:reduce)').matches});else this.map.setView(this.initialView.center,this.initialView.zoom);
+    if(points.length)this.map.fitBounds(points,{padding:[32,32],maxZoom:16,animate:!(window.CosinePreferences?.reducedMotion() ?? matchMedia('(prefers-reduced-motion:reduce)').matches)});else if(this.initialView.bounds)this.map.fitBounds(this.initialView.bounds,{padding:[12,12],maxZoom:this.initialView.zoom,animate:false});else this.map.setView(this.initialView.center,this.initialView.zoom);
   }
 };

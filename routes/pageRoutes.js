@@ -6,4 +6,6 @@ router.get('/driver',(req,res)=>res.render('driver/tracker',{title:'Driver track
 router.get('/signin',(req,res)=>res.render('auth/access',{title:'Demo sign in',active:'auth',signup:false}));
 router.get('/signup',(req,res)=>res.render('auth/access',{title:'Create demo session',active:'auth',signup:true}));
 router.get('/help',(req,res)=>res.render('home/help',{title:'How tracking works',active:'help'}));
+router.get('/profile',(req,res)=>res.render('account/profile',{title:'Profile',active:'profile'}));
+router.get('/settings',(req,res)=>res.render('account/settings',{title:'Settings',active:'settings'}));
 module.exports=router;

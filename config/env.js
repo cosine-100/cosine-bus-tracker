@@ -8,5 +8,6 @@ const config = {
 config.isProduction = config.env === 'production';
 
 function coordinate(value,min,max,fallback){const number=Number(value);return value!==undefined&&value!==''&&Number.isFinite(number)&&number>=min&&number<=max?number:fallback;}
-config.map={center:[coordinate(process.env.MAP_CENTER_LAT,-85,85,20),coordinate(process.env.MAP_CENTER_LNG,-180,180,0)],zoom:coordinate(process.env.MAP_ZOOM,2,18,3)};
+config.map={center:[coordinate(process.env.MAP_CENTER_LAT,-85,85,9.0820),coordinate(process.env.MAP_CENTER_LNG,-180,180,8.6753)],zoom:coordinate(process.env.MAP_ZOOM,2,18,6)};
+if(!process.env.MAP_CENTER_LAT&&!process.env.MAP_CENTER_LNG&&!process.env.MAP_ZOOM)config.map.bounds=[[4.2,2.7],[13.9,14.7]];
 module.exports = config;

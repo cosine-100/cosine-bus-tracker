@@ -1,15 +1,17 @@
+<% const workspaceNav = active === "student" || active === "driver"; const authNav = active === "auth"; const landingNav = active === "home"; %>
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-gold focus:px-4 focus:py-2">Skip to content</a>
-<header class="app-header">
+<header class="app-header" data-workspace-nav="<%= workspaceNav %>" data-landing-nav="<%= landingNav %>">
   <a href="/?welcome=1" class="brand" aria-label="Cosine Bus Tracker home"><%- include('logo') %><span class="brand-type">cosine<small>BUS TRACKER</small></span></a>
-  <nav class="header-tabs" aria-label="Main">
+  <% if (!landingNav) { %><nav class="header-tabs" aria-label="Main">
+<% if (!authNav) { %>
     <a href="/student" <%- active === 'student' ? 'aria-current="page"' : '' %>>Student dashboard</a>
     <a href="/driver" <%- active === 'driver' ? 'aria-current="page"' : '' %>>Driver tracking</a>
-  </nav>
+  <% } else { %><a href="/?welcome=1">Home</a><a href="/help">Help</a><% } %></nav><% } %>
   <div class="header-end">
     <button class="theme-toggle" type="button" data-theme-toggle role="switch" aria-checked="false" aria-label="Dark theme"><svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/></svg><span class="theme-track"><span></span></span><svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 15A9 9 0 0 1 9 4a9 9 0 1 0 11 11Z"/></svg></button>
-    <a class="account-link" href="/signin" data-signin-link>Sign in</a><button class="account-link" type="button" data-signout hidden>Sign out</button>
+    <% if (landingNav) { %><div class="demo-navigation"><button type="button" class="demo-trigger" data-demo-button aria-expanded="false" aria-controls="demo-navigation">Demo <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" aria-hidden="true"><path d="m5 7 5 5 5-5"/></svg></button><nav id="demo-navigation" class="demo-dropdown" aria-label="Demo workspaces" data-demo-menu hidden><a href="/student">Student dashboard</a><a href="/driver">Driver tracking</a></nav></div><a class="landing-signin" href="/signin">Sign in</a><% } else if (!workspaceNav && !authNav) { %><a class="account-link" href="/profile" data-profile-link>Profile</a><a class="account-link" href="/settings">Settings</a><a class="account-link" href="/signin" data-signin-link>Sign in</a><button class="account-link" type="button" data-signout hidden>Sign out</button><% } %>
   </div>
-  <button type="button" data-menu-button aria-expanded="false" aria-controls="mobile-menu" class="mobile-toggle" aria-label="Open navigation menu"><span></span><span></span></button>
-  <nav id="mobile-menu" data-menu class="hidden mobile-menu" aria-label="Mobile"><a href="/student">Student dashboard</a><a href="/driver">Driver tracking</a><a href="/signin" data-mobile-signin>Sign in / create demo account</a><button type="button" data-mobile-signout hidden>Sign out of demo</button><a href="/?welcome=1">About Cosine</a></nav>
+  <button type="button" data-menu-button aria-expanded="false" aria-controls="mobile-menu" class="mobile-toggle" aria-label="Open navigation menu"><svg class="menu-glyph" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span class="menu-label">Menu</span></button>
+  <nav id="mobile-menu" data-menu class="hidden mobile-menu" aria-label="Mobile"><% if(landingNav) { %><details class="mobile-demo"><summary>Explore demo</summary><a href="/student">Student dashboard</a><a href="/driver">Driver tracking</a></details><a href="/signin">Sign in</a><a href="/signup">Create an account</a><% } else if (!authNav) { %><a href="/student">Student dashboard</a><a href="/driver">Driver tracking</a><% if (workspaceNav) { %><a href="#tracking">Map</a><a href="<%= active === 'driver' ? '#trip-controls' : '#route-stops' %>"><%= active === 'driver' ? 'Trip controls' : 'Route & stops' %></a><% } %><div class="mobile-account-group"><a href="/profile">Profile</a><a href="/settings">Settings</a><a href="/signin" data-mobile-signin>Sign in / create demo account</a><button type="button" data-mobile-signout hidden>Sign out of demo</button></div><% } %><a href="/help">Help & guidance</a><a href="/?welcome=1">About Cosine</a></nav>
 </header>
 <div class="demo-session-bar" data-demo-session hidden><span data-demo-label>Demo session</span><span>Preview access only. Driver location sharing uses a separate private key.</span></div>

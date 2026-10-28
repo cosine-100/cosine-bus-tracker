@@ -4,9 +4,10 @@
 <main id="main" class="workspace" data-student>
   <div class="page-heading"><div><span class="eyebrow">STUDENT VIEW</span><h1>Student dashboard</h1></div><span class="date-chip"><%= new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) %></span></div>
   <section class="commute-hero" aria-labelledby="commute-title">
-    <div class="hero-copy"><span class="hero-kicker">MAKE THE MOST OF YOUR TIME</span><h2 id="commute-title">Your ride.<br><em>Right in sight.</em></h2><p>Find your bus, choose your stop,<br>and see the journey ahead.</p><a class="hero-link" href="#bus-search">Find your bus <%- include('../partials/icon',{name:'arrow'}) %></a></div>
+    <div class="hero-copy"><span class="hero-kicker">MAKE THE MOST OF YOUR TIME</span><h2 id="commute-title">Your ride<br><em>Right in sight</em></h2><p>Find your bus, choose your stop,<br>and see the journey ahead.</p><a class="hero-link" href="#bus-search">Find your bus <%- include('../partials/icon',{name:'arrow'}) %></a></div>
     <%- include('../partials/route-art') %>
   </section>
+<aside class="journey-advice" aria-label="Journey advice"><strong>Before you leave</strong><p>Select your bus and pickup stop. Check the last GPS update before relying on an arrival estimate.</p></aside>
   <form class="search-bar" role="search" data-search><span class="search-icon"><%- include('../partials/icon',{name:'search'}) %></span><div class="search-input"><label for="bus-search">Find your bus</label><input id="bus-search" type="search" placeholder="Search bus ID, name or route" autocomplete="off" aria-controls="fleet-results"></div><button class="btn btn-gold" type="submit">Search <%- include('../partials/icon',{name:'arrow'}) %></button></form>
   <section class="metric-grid" aria-label="Fleet summary">
     <% [ ['total','Registered buses','Campus fleet'], ['active','Active trips','Journeys in progress'], ['live','Sharing location','Recent GPS updates'], ['delayed','Delayed updates','Waiting for GPS'] ].forEach(function(item) { %>
